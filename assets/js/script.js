@@ -57,28 +57,51 @@ function countdown() {
 
 countdown();
 
-// TODO: randomly picks a question and answer set to show on screen (need to make this a function probs)
-var questionEl = $("<h2>");
-var answersEl = $("<ul>")
-var optionsEl = $("<li>")
-var random = Math.floor(Math.random() * 4);
-questionEl.text(questions[random].question);
-// console.log(questions[random].question)
-optionsEl.text(questions[random].options)
+// randomly picks a question and answer set to show on screen
+var quizBox = $("#quiz");
+function displayQuestion() {
 
+    var questionEl = $("<h2>");
+    var answersEl = $("<ul>")
+    
+    var random = Math.floor(Math.random() * 4);
+    questionEl.text(questions[random].question);
+    console.log(questions[random].question);
 
-// TODO: listen for clicks on answers
-// TODO: see if user picked the right answer
-optionsEL.click(function () {
-    //right answer
-    if ($(this).text() == questions[random].answer) {
-        //stuff
-    } 
-    //wrong answer
-    else {
-        //stuff
-        // TODO: subtract time if answer was wrong
+    quizBox.append(questionEl);
+    questionEl.append(answersEl);
+
+    // for loop to loop through answer options and display them in li items
+    for (let i = 0; i < questions[random].options.length; i++) {
+        var optionsEl = $("<li>")
+        const element = questions[random].options[i];
+        console.log(element)
+        optionsEl.text(element);
+        answersEl.append(optionsEl);
     }
-})
+
+    
+    
+
+
+    // TODO: listen for clicks on answers
+    // TODO: see if user picked the right answer
+    $("li").click(function(event) {
+        console.log(event.target.textContent)
+        var text = event.target.textContent
+        //right answer
+        if (text == questions[random].answer) {
+            alert("woop")
+        }
+        //wrong answer
+        else {
+            alert("wah")
+            // subtract time if answer was wrong
+            timeLeft = timeLeft - 10;
+        }
+    })
+}
+
+displayQuestion();
 
 // TODO: show initials and score
