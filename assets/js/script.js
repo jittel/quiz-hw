@@ -1,4 +1,4 @@
-// TODO: make arrays of questions and answers
+// make arrays of questions and answers
 var questions = [
     {
         question: "which of these types is super effective against steelix?",
@@ -29,9 +29,10 @@ var questions = [
 
 // Timer that counts down from 100
 var timerEl = $("#countdown")
+var timeLeft = "";
 function countdown() {
-    var timeLeft = 99;
-    console.log("yipee")
+    timeLeft = 99;
+    // console.log("yipee")
 
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function () {
@@ -50,18 +51,34 @@ function countdown() {
             timerEl.text("");
             // Use `clearInterval()` to stop the timer
             clearInterval(timeInterval);
-            // Call the `displayMessage()` function
-            displayMessage();
         }
     }, 1000);
 }
 
 countdown();
 
-// TODO: randomly picks a question and answer set to show on screen
+// TODO: randomly picks a question and answer set to show on screen (need to make this a function probs)
+var questionEl = $("<h2>");
+var answersEl = $("<ul>")
+var optionsEl = $("<li>")
+var random = Math.floor(Math.random() * 4);
+questionEl.text(questions[random].question);
+// console.log(questions[random].question)
+optionsEl.text(questions[random].options)
+
 
 // TODO: listen for clicks on answers
-    // TODO: see if user picked the right answer
-    // TODO: subtract time if answer was wrong
+// TODO: see if user picked the right answer
+optionsEL.click(function () {
+    //right answer
+    if ($(this).text() == questions[random].answer) {
+        //stuff
+    } 
+    //wrong answer
+    else {
+        //stuff
+        // TODO: subtract time if answer was wrong
+    }
+})
 
 // TODO: show initials and score
