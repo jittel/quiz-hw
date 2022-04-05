@@ -55,8 +55,6 @@ function countdown() {
     }, 1000);
 }
 
-countdown();
-
 // randomly picks a question and answer set to show on screen
 var quizBox = $("#quiz");
 function displayQuestion() {
@@ -94,7 +92,7 @@ function displayQuestion() {
             console.log(questions)
 
             questionEl.remove();
-            // TODO: ends the quiz when all questions have been answered
+            // ends the quiz when all questions have been answered
             if (questions[0] == undefined) {
                 alert("good job! you finished!");
                 showScore();
@@ -111,17 +109,25 @@ function displayQuestion() {
     })
 }
 
-
-
-displayQuestion();
-
-// TODO: show initials and score
+// show initials and score
 function showScore() {
     //stuff here
     var score = timeLeft;
     console.log("winner winner chicken dinner", score)
+    var initials = prompt("enter your initials here")
+    alert(`Player: ${initials} || Score: ${score}`)
     // Use `clearInterval()` to stop the timer
     clearInterval(timeInterval);
 }
 
-// TODO: add a clear high score button
+// TODO: add a reset button
+$("#reset").on("click", function() {
+    //reload the page
+    location.reload();
+})
+
+// start button stuff
+$("#start").on("click", function() {
+    displayQuestion();
+    countdown();
+})
