@@ -30,21 +30,21 @@ var questions = [
 // Timer that counts down from 100
 var timerEl = $("#countdown")
 var timeLeft = "";
+var timeInterval = '';
 function countdown() {
     timeLeft = 99;
-    // console.log("yipee")
 
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
         // As long as the `timeLeft` is greater than 1
         if (timeLeft > 1) {
-            // Set the `textContent` of `timerEl` to show the remaining seconds
-            timerEl.text(timeLeft + ' seconds remaining');
+            // Set the `textContent` of `timerEl` to show the remaining seconds (minus 1 to match score times)
+            timerEl.text(timeLeft - 1 + ' seconds remaining');
             // Decrement `timeLeft` by 1
             timeLeft--;
         } else if (timeLeft === 1) {
             // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-            timerEl.text(timeLeft + ' second remaining');
+            timerEl.text(timeLeft - 1 + ' second remaining');
             timeLeft--;
         } else {
             // Once `timeLeft` gets to 0, set `timerEl` to an empty string
@@ -63,10 +63,11 @@ function displayQuestion() {
 
     var questionEl = $("<h2>");
     var answersEl = $("<ul>")
-    
-    var random = Math.floor(Math.random() * 4);
+
+    var random = Math.floor(Math.random() * (questions.length - 1));
     questionEl.text(questions[random].question);
     console.log(questions[random].question);
+
 
     quizBox.append(questionEl);
     questionEl.append(answersEl);
@@ -80,28 +81,47 @@ function displayQuestion() {
         answersEl.append(optionsEl);
     }
 
-    
-    
-
-
-    // TODO: listen for clicks on answers
-    // TODO: see if user picked the right answer
-    $("li").click(function(event) {
-        console.log(event.target.textContent)
+    // listen for clicks on answers
+    // see if user picked the right answer
+    $("li").click(function (event) {
+        // console.log(event.target.textContent)
         var text = event.target.textContent
         //right answer
         if (text == questions[random].answer) {
-            alert("woop")
+            alert("correct")
+            // splice out the question that was just asked
+            questions.splice(random, 1)
+            console.log(questions)
+
+            questionEl.remove();
+            // TODO: ends the quiz when all questions have been answered
+            if (questions[0] == undefined) {
+                alert("good job! you finished!");
+                showScore();
+            } else {
+                displayQuestion();
+            }
         }
         //wrong answer
         else {
-            alert("wah")
+            alert("incorrect")
             // subtract time if answer was wrong
             timeLeft = timeLeft - 10;
         }
     })
 }
 
+
+
 displayQuestion();
 
 // TODO: show initials and score
+function showScore() {
+    //stuff here
+    var score = timeLeft;
+    console.log("winner winner chicken dinner", score)
+    // Use `clearInterval()` to stop the timer
+    clearInterval(timeInterval);
+}
+
+// TODO: add a clear high score button
