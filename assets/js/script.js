@@ -51,16 +51,20 @@ function countdown() {
             timerEl.text("");
             // Use `clearInterval()` to stop the timer
             clearInterval(timeInterval);
+            alert("Out of time!")
+            questionEl.remove();
         }
     }, 1000);
 }
 
 // randomly picks a question and answer set to show on screen
 var quizBox = $("#quiz");
+var questionEl = '';
 function displayQuestion() {
 
-    var questionEl = $("<h2>");
-    var answersEl = $("<ul>")
+    questionEl = $("<h2>");
+    var answersEl = $("<ul>");
+    answersEl.addClass("list");
 
     var random = Math.floor(Math.random() * (questions.length - 1));
     questionEl.text(questions[random].question);
@@ -73,6 +77,7 @@ function displayQuestion() {
     // for loop to loop through answer options and display them in li items
     for (let i = 0; i < questions[random].options.length; i++) {
         var optionsEl = $("<li>")
+        optionsEl.addClass("options");
         const element = questions[random].options[i];
         console.log(element)
         optionsEl.text(element);
@@ -95,6 +100,7 @@ function displayQuestion() {
             // ends the quiz when all questions have been answered
             if (questions[0] == undefined) {
                 alert("good job! you finished!");
+                timerEl.remove();
                 showScore();
             } else {
                 displayQuestion();

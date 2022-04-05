@@ -1,0 +1,17 @@
+.root {
+    background-image: url("https://www.pngfind.com/pngs/m/7-72777_magikarp-png-transparent-png.png");
+    background-repeat: repeat;
+}
+
+.list {
+    background-color: black;
+    margin-right: 80%;
+}
+
+.options {
+    border-style: solid;
+    /* border-color: black;
+    background-color: black; */
+    color: white;
+    /* margin-right: 50%; */
+}
